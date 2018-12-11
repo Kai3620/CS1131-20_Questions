@@ -186,7 +186,7 @@ public class BinarySearchTree<V extends Comparable<V>> {
 		}
 	}
 
-	public BinaryTreeNode<V> getRoot() {
+	public LinkedBinaryTreeNode<V> getRoot() {
 		return root;
 	}
 }
