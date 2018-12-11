@@ -2,38 +2,38 @@
 
 import java.util.ArrayList;
 
-public class LinkedBinaryTreeNode<E extends Comparable<E>> implements BinaryTreeNode<E> {
+public class LinkedBinaryTreeNode<V extends Comparable<V>> implements BinaryTreeNode<V> {
 
-	BinarySearchTree<E> tree = new BinarySearchTree<E>();
+	BinarySearchTree<V> tree = new BinarySearchTree<V>();
 	
 	static int height;
 	
-	private E data;
-	private LinkedBinaryTreeNode<E> parent;
-	private LinkedBinaryTreeNode<E> left;
-	private LinkedBinaryTreeNode<E> right;
+	private V data;
+	private LinkedBinaryTreeNode<V> parent;
+	private LinkedBinaryTreeNode<V> left;
+	private LinkedBinaryTreeNode<V> right;
 	
-	public LinkedBinaryTreeNode(BinarySearchTree<E> tree, E data) {
+	public LinkedBinaryTreeNode(BinarySearchTree<V> tree, V data) {
 		this.data = data;
 	}
 	
 	@Override
-	public E getData() {
+	public V getData() {
 		return data;
 	}
 
 	@Override
-	public void setData(E data) {
+	public void setData(V data) {
 		this.data = data;
 	}
 
 	@Override
-	public BinaryTreeNode<E> getRoot() {
-		return root;
+	public BinaryTreeNode<V> getRoot() {
+		return tree.getRoot();
 	}
 
 	@Override
-	public BinaryTreeNode<E> getParent() {
+	public BinaryTreeNode<V> getParent() {
 		return parent;
 	}
 
@@ -46,7 +46,7 @@ public class LinkedBinaryTreeNode<E extends Comparable<E>> implements BinaryTree
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public void setLeft(BinaryTreeNode child) {
-		left = (LinkedBinaryTreeNode<E>) child;
+		left = (LinkedBinaryTreeNode<V>) child;
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -58,7 +58,7 @@ public class LinkedBinaryTreeNode<E extends Comparable<E>> implements BinaryTree
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public void setRight(BinaryTreeNode child) {
-		right = (LinkedBinaryTreeNode<E>) child;
+		right = (LinkedBinaryTreeNode<V>) child;
 	}
 
 	@Override
@@ -100,15 +100,15 @@ public class LinkedBinaryTreeNode<E extends Comparable<E>> implements BinaryTree
 		return 1 + size(this);
 	}
 	
-	private int size(LinkedBinaryTreeNode<E> node) {
+	private int size(LinkedBinaryTreeNode<V> node) {
 		return 0;
 	}
 
 	@Override
 	public void removeFromParent() {
-		if(this != root) {
+		//if(this != root) {
 			
-		}
+		//}
 	}
 
 	@Override
@@ -134,6 +134,10 @@ public class LinkedBinaryTreeNode<E extends Comparable<E>> implements BinaryTree
 	@Override
 	public void traverseInorder(Visitor visitor) {
 		
+	}
+
+	public void setParent(LinkedBinaryTreeNode<V> node) {
+		this.parent = node;
 	}
 
 }
