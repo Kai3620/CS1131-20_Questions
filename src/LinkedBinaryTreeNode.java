@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class LinkedBinaryTreeNode<E extends Comparable<E>> implements BinaryTreeNode<E> {
 
+	//Testing for Katie
 	BinarySearchTree<E> tree = new BinarySearchTree<E>();
 	
 	static int height;
