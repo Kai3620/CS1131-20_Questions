@@ -2,8 +2,6 @@ import java.util.ArrayList;
 
 public class LinkedBinaryTreeNode<V extends Comparable<V>> implements BinaryTreeNode<V> {
 	
-	static int height;
-	
 	private V data;
 	private LinkedBinaryTreeNode<V> parent;
 	private LinkedBinaryTreeNode<V> left;
@@ -83,15 +81,17 @@ public class LinkedBinaryTreeNode<V extends Comparable<V>> implements BinaryTree
 	@Override
 	public int getDepth() {
 		int count = 0;
-		while(parent != null) {
+		LinkedBinaryTreeNode currentParent = parent;
+		while(currentParent != null) {
 			count++;
+			currentParent = parent.getParent();
 		}
 		return count;
 	}
 
 	@Override
 	public int getHeight() {
-		return height;
+		return null;
 	}
 
 	@Override
