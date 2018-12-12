@@ -110,11 +110,14 @@ public class LinkedBinaryTreeNode<V extends Comparable<V>> implements BinaryTree
 		}
 		else
         {
-            if(parent.left.data == data )
-                parent.left = null;
-            else if(parent.right.data == data)
-            {
-                parent.right = null
+            if(parent.left != null) {
+                if (parent.left.data == data)
+                    parent.left = null;
+            }
+            else if(parent.right != null) {
+                if (parent.right.data == data) {
+                    parent.right = null
+                }
             }
             else{
                 System.out.println("Parent wasn't properly followed.");
