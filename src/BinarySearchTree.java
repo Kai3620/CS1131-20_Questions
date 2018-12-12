@@ -1,5 +1,5 @@
 // ==============================================================
-// Yeet
+// Authors: Nick Hess, Justin Marshall, Katie Schmidt, Kai Bo
 
 public class BinarySearchTree<V extends Comparable<V>> {
 	
@@ -32,7 +32,8 @@ public class BinarySearchTree<V extends Comparable<V>> {
 				created = new LinkedBinaryTreeNode<V>(this, value);
 				node.setRight(created);
 				created.setParent(node);
-			} else {
+			}
+			else {
 				add(((LinkedBinaryTreeNode<V>)node.getRight()), value);
 			}
 		}
