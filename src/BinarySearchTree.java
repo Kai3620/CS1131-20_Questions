@@ -22,26 +22,27 @@ public class BinarySearchTree<V extends Comparable<V>> {
 		size++;
 	}
 
-	private void add(Node node, V value) {
-		Node created = null;
+	@SuppressWarnings("unchecked")
+	private void add(LinkedBinaryTreeNode<V> node, V value) {
+		LinkedBinaryTreeNode<V> created = null;
 		// Value Greater Than Node Value
-		if ( node.getValue().compareTo(value) < 0 ) {
-			if ( node.getRightChild() == null ) {
-				created = new Node(value);
-				node.setRightChild(created);
+		if ( node.getData().compareTo(value) < 0 ) {
+			if ( node.getRight() == null ) {
+				created = new LinkedBinaryTreeNode<V>(this, value);
+				node.setRight(created);
 				created.setParent(node);
 			} else {
-				add(node.getRightChild(), value);
+				add(((LinkedBinaryTreeNode<V>)node.getRight()), value);
 			}
 		}
 		// Value Less Than Node Value
-		else if (node.getValue().compareTo(value) > 0) {
-			if ( node.getLeftChild() == null ) {
-				created = new Node(value);
-				node.setLeftChild(created);
+		else if (node.getData().compareTo(value) > 0) {
+			if ( node.getLeft() == null ) {
+				created = new LinkedBinaryTreeNode<V>(this, value);
+				node.setLeft(created);
 				created.setParent(node);
 			} else {
-				add( node.getLeftChild(), value);
+				add(((LinkedBinaryTreeNode<V>)node.getLeft()), value);
 			}
 		}
 		// Value Equals Node Value
@@ -54,19 +55,20 @@ public class BinarySearchTree<V extends Comparable<V>> {
 		return find(root, value) != null;
 	}
 
-	public Node find( V value ) {
+	public LinkedBinaryTreeNode<V> find( V value ) {
 		return find(root, value);
 	}
 
-	private Node find( Node node, V value ) {
+	@SuppressWarnings("unchecked")
+	private LinkedBinaryTreeNode<V> find( LinkedBinaryTreeNode<V> node, V value ) {
 		if ( node == null ) {
 			// value not found in tree
 			return null;
 		}
-		if ( value.compareTo(node.getValue()) < 0 ) {
-			return find( node.getLeftChild(), value);
-		}else if ( value.compareTo(node.getValue()) > 0 ) {
-			return find( node.getRightChild(), value);
+		if ( value.compareTo(node.getData()) < 0 ) {
+			return find((LinkedBinaryTreeNode<V>) node.getLeft(), value);
+		}else if ( value.compareTo(node.getData()) > 0 ) {
+			return find((LinkedBinaryTreeNode<V>) node.getRight(), value);
 		} else {
 			// found it!
 			return node;
@@ -74,7 +76,7 @@ public class BinarySearchTree<V extends Comparable<V>> {
 	}
 
 	public void remove(V value) {
-		Node selected = find(value);
+		LinkedBinaryTreeNode<V> selected = find(value);
 
 		if(selected == null)
 			return;
@@ -87,22 +89,22 @@ public class BinarySearchTree<V extends Comparable<V>> {
 		remove(selected);
 	}
 
-	public void remove(Node node) {
-		Node nextLargest = getNextLargest(node);
+	public void remove(LinkedBinaryTreeNode<V> node) {
+		LinkedBinaryTreeNode<V> nextLargest = getNextLargest(node);
 		//Has a right child
 		if(nextLargest != null) {
-			node.setValue(nextLargest.getValue());
-			Node parent = nextLargest.getParent();
-			if(parent.getLeftChild() == nextLargest) {
-				parent.setLeftChild(nextLargest.getRightChild());;
-				if(parent.getLeftChild() != null) {
-					parent.getLeftChild().setParent(parent);
+			node.setData(nextLargest.getData());
+			LinkedBinaryTreeNode<V> parent = (LinkedBinaryTreeNode<V>) nextLargest.getParent();
+			if(parent.getLeft() == nextLargest) {
+				parent.setLeft(nextLargest.getRight());;
+				if(parent.getLeft() != null) {
+					((LinkedBinaryTreeNode<V>) parent.getLeft()).setParent(parent);
 				}
 			}
 			else {
-				parent.setRightChild(nextLargest.getRightChild());
-				if(parent.getRightChild() != null) {
-					parent.getRightChild().setParent(parent);
+				parent.setRight(nextLargest.getRight());
+				if(parent.getRight() != null) {
+					((LinkedBinaryTreeNode<V>) parent.getRight()).setParent(parent);
 				}
 			}
 			size--;
@@ -110,22 +112,22 @@ public class BinarySearchTree<V extends Comparable<V>> {
 		//No right child
 		else {
 			if(node == root) {
-				root = node.getLeftChild();
+				root = (LinkedBinaryTreeNode<V>) node.getLeft();
 				root.setParent(null);
 				size--;
 			}
 			else {
-				nextLargest = node.getLeftChild();
-				Node parent = node.getParent();
-				if(parent.getLeftChild() == node) {
-					parent.setLeftChild(nextLargest);
-					if(parent.getLeftChild() != null)
-						parent.getLeftChild().setParent(parent);
+				nextLargest = (LinkedBinaryTreeNode<V>) node.getLeft();
+				LinkedBinaryTreeNode<V> parent = (LinkedBinaryTreeNode<V>) node.getParent();
+				if(parent.getLeft() == node) {
+					parent.setLeft(nextLargest);
+					if(parent.getLeft() != null)
+						((LinkedBinaryTreeNode<V>) parent.getLeft()).setParent(parent);
 				}
 				else {
-					parent.setRightChild(nextLargest);
-					if(parent.getRightChild() != null) {
-						parent.getRightChild().setParent(parent);
+					parent.setRight(nextLargest);
+					if(parent.getRight() != null) {
+						((LinkedBinaryTreeNode<V>) parent.getRight()).setParent(parent);
 					}
 				}
 				size--;
@@ -133,54 +135,58 @@ public class BinarySearchTree<V extends Comparable<V>> {
 		}
 	}
 
-	private BinarySearchTree<V>.Node getNextLargest(BinarySearchTree<V>.Node node) {
-		return node.getRightChild();
+	private LinkedBinaryTreeNode<V> getNextLargest(LinkedBinaryTreeNode<V> node) {
+		return (LinkedBinaryTreeNode<V>) node.getRight();
 	}
 
 	public interface Visitor {
-		public void visit( BinarySearchTree.Node node );
+		public void visit(LinkedBinaryTreeNode node);
 	}
 
 	//Root, left, right
-	public void preorderTraversal(Node node, Visitor v) {
+	public void preorderTraversal(LinkedBinaryTreeNode<V> node, Visitor v) {
 		if (node == null) {
 			return;
 		}
 		v.visit(node);
-		preorderTraversal(node.getLeftChild(), v);
-		preorderTraversal(node.getRightChild(), v);
+		preorderTraversal((LinkedBinaryTreeNode<V>) node.getLeft(), v);
+		preorderTraversal((LinkedBinaryTreeNode<V>) node.getRight(), v);
 	}
 
 	//Left, root, right
-	public void inorderTraversal(Node node, Visitor v) {
+	public void inorderTraversal(LinkedBinaryTreeNode<V> node, Visitor v) {
 		if (node == null) {
 			return;
 		}
-		inorderTraversal(node.getLeftChild(), v);
+		inorderTraversal((LinkedBinaryTreeNode<V>) node.getLeft(), v);
 		v.visit(node);
-		inorderTraversal(node.getRightChild(), v);
+		inorderTraversal((LinkedBinaryTreeNode<V>) node.getRight(), v);
 	}
 
 	//Left, right, root
-	public void postorderTraversal(Node node, Visitor v) {
+	public void postorderTraversal(LinkedBinaryTreeNode<V> node, Visitor v) {
 		if (node == null) {
 			return;
 		}
-		postorderTraversal(node.getRightChild(), v);
-		postorderTraversal(node.getLeftChild(), v);
+		postorderTraversal((LinkedBinaryTreeNode<V>) node.getRight(), v);
+		postorderTraversal((LinkedBinaryTreeNode<V>) node.getLeft(), v);
 		v.visit(node);
 	}
 
 	//Level by level
-	public void breadthfirstTraversal(Node node, Visitor v) {
+	public void breadthfirstTraversal(LinkedBinaryTreeNode<V> node, Visitor v) {
 		if(node == null)
 			return;
 		else {
 			v.visit(node);
-			if(node.getLeftChild() != null)
-				breadthfirstTraversal(node.getLeftChild(), v);
-			if(node.getRightChild() != null)
-				breadthfirstTraversal(node.getRightChild(), v);
+			if(node.getLeft() != null)
+				breadthfirstTraversal((LinkedBinaryTreeNode<V>) node.getLeft(), v);
+			if(node.getRight() != null)
+				breadthfirstTraversal((LinkedBinaryTreeNode<V>) node.getRight(), v);
 		}
+	}
+
+	public LinkedBinaryTreeNode<V> getRoot() {
+		return root;
 	}
 }
