@@ -1,8 +1,4 @@
-// ==============================================================
-// Authors: Nick Hess, Justin Marshall, Katie Schmidt, Kai Borah, Rhandie Grabinski
-// Date Last Modified: 12/12/18
-// Description: Yeah
-// ==============================================================
+
 
 public class BinarySearchTree<V extends Comparable<V>> {
 	

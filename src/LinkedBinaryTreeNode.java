@@ -1,3 +1,9 @@
+// ==============================================================
+// Authors: Nick Hess, Justin Marshall, Katie Schmidt, Kai Borah, Rhandie Grabinski
+// Date Last Modified: 12/12/18
+// Description: Yeah
+// ==============================================================
+
 import java.util.ArrayList;
 
 public class LinkedBinaryTreeNode<V extends Comparable<V>> implements BinaryTreeNode<V> {
@@ -118,6 +124,7 @@ public class LinkedBinaryTreeNode<V extends Comparable<V>> implements BinaryTree
                 parent.right = null
             }
             else{
+            	// Shouldn't actually happen.
                 System.out.println("Parent wasn't properly followed.");
                 return;
             }
