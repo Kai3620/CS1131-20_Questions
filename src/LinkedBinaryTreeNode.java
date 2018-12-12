@@ -7,10 +7,6 @@
 import java.util.ArrayList;
 
 public class LinkedBinaryTreeNode<V extends Comparable<V>> implements BinaryTreeNode<V> {
-
-	//Katie Testing
-
-	BinarySearchTree<V> tree = new BinarySearchTree<V>();
 	
 	static int height;
 	
@@ -35,7 +31,10 @@ public class LinkedBinaryTreeNode<V extends Comparable<V>> implements BinaryTree
 
 	@Override
 	public BinaryTreeNode<V> getRoot() {
-		return tree.getRoot();
+		if( this.parent == null ) {
+			return this;
+		}
+		return parent.getRoot();
 	}
 
 	@Override
