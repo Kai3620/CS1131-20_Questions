@@ -9,7 +9,7 @@ public class LinkedBinaryTreeNode<V extends Comparable<V>> implements BinaryTree
 	private LinkedBinaryTreeNode<V> left;
 	private LinkedBinaryTreeNode<V> right;
 	
-	public LinkedBinaryTreeNode(BinarySearchTree<V> tree, V data) {
+	public LinkedBinaryTreeNode(V data) {
 		this.data = data;
 	}
 	
