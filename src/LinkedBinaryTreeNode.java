@@ -1,5 +1,3 @@
-
-
 import java.util.ArrayList;
 
 public class LinkedBinaryTreeNode<V extends Comparable<V>> implements BinaryTreeNode<V> {
@@ -108,9 +106,22 @@ public class LinkedBinaryTreeNode<V extends Comparable<V>> implements BinaryTree
 
 	@Override
 	public void removeFromParent() {
-		//if(this != root) {
-			
-		//}
+		if(parent == null) {
+			return;
+		}
+		else
+        {
+            if(parent.left.data == data )
+                parent.left = null;
+            else if(parent.right.data == data)
+            {
+                parent.right = null
+            }
+            else{
+                System.out.println("Parent wasn't properly followed.");
+                return;
+            }
+        }
 	}
 
 	@Override
