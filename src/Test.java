@@ -6,8 +6,7 @@ public class Test
 
     public void newMain() {
         Scanner input = new Scanner(System.in);
-        System.out.println("Think of an animal.");
-        if(root.getData() == null)
+        if(root == null)
         {
             setUp();
             guess(root);
@@ -21,7 +20,8 @@ public class Test
 
     private void setUp()
     {
-        root.setData("Elephant");
+        LinkedBinaryTreeNode temp = new LinkedBinaryTreeNode("Elephant");
+        root = temp;
     }
 
 
@@ -33,7 +33,7 @@ public class Test
         {
             System.out.print(node.getData() + " ");
             String answer = input.next();
-            if(answer == "y")
+            if(answer.equals("y"))
             {
                 guess((LinkedBinaryTreeNode)node.getRight());
             }
@@ -44,7 +44,7 @@ public class Test
         {
             System.out.print("Was the animal you were thinking of a(n) " + node.getData() + "? ");
             String answer = input.next();
-            if(answer == "y")
+            if(answer.equals("y"))
             {
                 System.out.println("It's me Waluigi, and I have won!");
             }
@@ -62,28 +62,24 @@ public class Test
         {
             System.out.print("What was the animal? ");
             String animal = input.next();
-            System.out.println();
 
-            System.out.print("What question separates a(n) " + animal + " from a(n) " + node.getData());
-            String question = different(input);
-            System.out.println();
+            Scanner nesquick = new Scanner(System.in);
+            System.out.print("What question separates a(n) " + animal + " from a(n) " + node.getData() + " ");
+            String question = nesquick.nextLine();
 
             System.out.print("What is the correct answer for this animal? ");
             String answer = input.next();
-            System.out.println();
 
-            if(answer == "y")
+            if(answer.equals("y"))
             {
                 // Makes a new node that will have the new animal and then points it back to the current node.
-                LinkedBinaryTreeNode temp = null;
-                temp.setData(animal);
+                LinkedBinaryTreeNode temp = new LinkedBinaryTreeNode(animal);
                 temp.setParent(node);
                 node.setRight(temp);
 
 
                 // Put the current data of the node into a new one and the resets the data of the current node to be the question.
-                temp = null;
-                temp.setData(node.getData());
+                temp = new LinkedBinaryTreeNode(node.getData());
                 node.setLeft(temp);
                 node.setData(question);
                 temp.setParent(node);
@@ -91,33 +87,30 @@ public class Test
             else
             {
                 // Makes a new node that will have the new animal and then points it back to the current node.
-                LinkedBinaryTreeNode temp = null;
-                temp.setData(animal);
+                LinkedBinaryTreeNode temp = new LinkedBinaryTreeNode(animal);
                 temp.setParent(node);
                 node.setLeft(temp);
 
 
                 // Put the current data of the node into a new one and then resets the data of the current node to be the question.
-                temp = null;
-                temp.setData(node.getData());
+                temp = new LinkedBinaryTreeNode(node.getData());
                 node.setRight(temp);
                 node.setData(question);
                 temp.setParent(node);
             }
         }
+        newMain();
     }
 
-    private String different(Scanner input)
-    {
-        String question = input.nextLine();
-        return question;
-    }
+
 
 
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
+        System.out.print("Would you like to play a game? ");
         String answer = input.next();
-        if(answer == "y"){
+        if(answer.equals("y") || answer.equals("yes"))
+        {
             Test test = new Test();
             test.newMain();
         }
