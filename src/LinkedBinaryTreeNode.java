@@ -90,7 +90,7 @@ public class LinkedBinaryTreeNode<V extends Comparable<V>> implements BinaryTree
 		BinaryTreeNode<V> currentParent = parent;
 		while(currentParent != null) {
 			count++;
-			currentParent = parent.getParent();
+			currentParent = (LinkedBinaryTreeNode)parent.getParent();
 		}
 		return count;
 	}
