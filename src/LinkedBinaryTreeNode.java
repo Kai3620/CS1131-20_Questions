@@ -87,7 +87,7 @@ public class LinkedBinaryTreeNode<V extends Comparable<V>> implements BinaryTree
 	@Override
 	public int getDepth() {
 		int count = 0;
-		LinkedBinaryTreeNode currentParent = parent;
+		BinaryTreeNode<V> currentParent = parent;
 		while(currentParent != null) {
 			count++;
 			currentParent = parent.getParent();
@@ -97,7 +97,7 @@ public class LinkedBinaryTreeNode<V extends Comparable<V>> implements BinaryTree
 
 	@Override
 	public int getHeight() {
-		return null;
+		return 0;
 	}
 
 	@Override
@@ -122,7 +122,7 @@ public class LinkedBinaryTreeNode<V extends Comparable<V>> implements BinaryTree
             }
             else if(parent.right != null) {
                 if (parent.right.data == data) {
-                    parent.right = null
+                    parent.right = null;
                 }
             }
             else{
