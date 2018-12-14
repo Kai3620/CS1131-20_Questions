@@ -87,7 +87,7 @@ public class LinkedBinaryTreeNode<V extends Comparable<V>> implements BinaryTree
 	@Override
 	public int getDepth() {
 		int count = 0;
-		LinkedBinaryTreeNode currentParent = parent;
+		LinkedBinaryTreeNode<V> currentParent = parent;
 		while(currentParent != null) {
 			count++;
 			currentParent = (LinkedBinaryTreeNode)parent.getParent();
@@ -145,18 +145,48 @@ public class LinkedBinaryTreeNode<V extends Comparable<V>> implements BinaryTree
 
 	@Override
 	public void traversePreorder(Visitor visitor) {
-		
+        LinkedBinaryTreeNode<V> root = (LinkedBinaryTreeNode<V>)getRoot();
+        traversePreorder( root, visitor );
 	}
+	//Helper method for the traversePreorder method
+	private void traversePreorder( LinkedBinaryTreeNode<V> node, Visitor visitor ) {
+	    if( node == null ) {
+	        return;
+        }
+	    visitor.visit( node );
+	    traversePreorder( node.left, visitor );
+	    traversePreorder( node.right, visitor );
+    }
 
 	@Override
 	public void traversePostorder(Visitor visitor) {
-		
+        LinkedBinaryTreeNode<V> root = (LinkedBinaryTreeNode<V>)getRoot();
+        traversePostorder( root, visitor );
 	}
+	//Helper method for the traversePostorder method
+    private void traversePostorder( LinkedBinaryTreeNode<V> node, Visitor visitor ) {
+        if( node == null ) {
+            return;
+        }
+	    traversePostorder( node.left, visitor );
+	    traversePostorder( node.right, visitor );
+	    visitor.visit( node );
+    }
 
 	@Override
 	public void traverseInorder(Visitor visitor) {
-		
+        LinkedBinaryTreeNode<V> root = (LinkedBinaryTreeNode<V>)getRoot();
+        traverseInorder( root, visitor );
 	}
+	//Helper method for the traverseInorder method
+    private void traverseInorder( LinkedBinaryTreeNode<V> node, Visitor visitor ) {
+        if( node == null ) {
+            return;
+        }
+        traverseInorder( node.left, visitor );
+        visitor.visit( node );
+        traverseInorder( node.right, visitor );
+    }
 
 	public void setParent(LinkedBinaryTreeNode<V> node) {
 		this.parent = node;
