@@ -10,7 +10,7 @@ public class Test
         if(root.getData() == null)
         {
             setUp();
-            guess();
+//            guess();
         }
 
 
